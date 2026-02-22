@@ -65,3 +65,12 @@
     --chart-5: 340 75% 55%;
   }
 }
+
+
+:root {
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+body {
+  font-family: var(--font-montserrat);
+}

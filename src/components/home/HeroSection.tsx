@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-12 sm:py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-b from-secondary to-background py-12 sm:py-16 lg:py-24 mb-3">
       <div className="mx-auto container px-8 sm:px-6 lg:px-16">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-12 items-center">
           {/* Left Content */}

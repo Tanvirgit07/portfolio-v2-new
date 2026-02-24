@@ -10,19 +10,19 @@ interface DonationMatterCard {
 
 const cards: DonationMatterCard[] = [
   {
-    icon: <ImpactIcon />,
+    icon: '/images/donation1.png',
     title: 'Immediate Impact',
     description:
       'Your contribution goes straight to the people who need it most, delivering fast and meaningful support where it matters.',
   },
   {
-    icon: <TrustedIcon />,
+    icon: '/images/donation1.png',
     title: 'Trusted results',
     description:
       'Our campaigns consistently achieve their goals, creating measurable and lasting change for the communities we support.',
   },
   {
-    icon: <TransparencyIcon />,
+    icon: '/images/donation1.png',
     title: 'Full Transparency',
     description:
       'We believe in openness at every step—clearly showing how funds are used and the real outcomes they help create.',
@@ -32,12 +32,12 @@ const cards: DonationMatterCard[] = [
 export function DonationMattersSection() {
   return (
     <section className="py-12 sm:py-16 lg:py-24 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto container px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground text-balance">
+          <h2 className="text-[30px] sm:text-[38px] lg:text-[48px] font-medium text-foreground text-balance">
             Your donation matters
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-foreground/70 text-balance max-w-2xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-foreground/70 text-balance max-w-3xl mx-auto">
             Whether it&apos;s through donations, volunteering, or fundraising, there are many ways to make a meaningful impact. Find out how you can contribute to our mission.
           </p>
         </div>
@@ -51,6 +51,7 @@ export function DonationMattersSection() {
               <div className="flex-shrink-0 bg-secondary p-8 flex items-center justify-center h-32">
                 <div className="text-5xl text-primary">
                   {card.icon}
+                  
                 </div>
               </div>
               <div className="flex flex-col flex-grow p-6 sm:p-8">

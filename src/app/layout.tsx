@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserrat.className} antialiased`}>
-        <div className="bg-[#EFEFEF]">{children}</div>
+        <div className="">{children}</div>
       </body>
     </html>
   );

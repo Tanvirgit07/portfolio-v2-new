@@ -46,7 +46,7 @@ function HeroIllustration() {
   return (
     <div className="relative w-full h-64 sm:h-96 lg:h-[500px]">
       <Image
-        src="/images/image 3.png"
+        src="/images/image 3 (1).png"
         alt="Hero Image"
         fill
         className="object-cover"

@@ -1,6 +1,8 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const steps = [
   {
@@ -27,20 +29,69 @@ export default function DonorInformation() {
     donationAmount: '',
   });
 
+  const searchParams = useSearchParams();
+  const campaignId = searchParams.get('campaignId');
+  const campaignName = searchParams.get('campaignName') || 'Campaign Donation';
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const paymentMutation = useMutation({
+    mutationFn: async () => {
+      // Build success URL with donor info as query params
+      const successParams = new URLSearchParams({
+        donorName: form.name,
+        donorEmail: form.email,
+        donorMobile: form.mobile,
+        donorCountry: form.country,
+        donorCity: form.city,
+        amount: form.donationAmount,
+        campaignName: campaignName,
+      });
+
+      const successUrl = `${window.location.origin}/donor-payment-methods?${successParams.toString()}`;
+
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/donation/create-donation-session`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            campaignId: campaignId,
+            donor: {
+              name: form.name,
+              email: form.email,
+              mobile: form.mobile,
+              country: form.country,
+              city: form.city,
+            },
+            amount: Number(form.donationAmount),
+            successUrl: successUrl,
+          }),
+        }
+      );
+      const data = await res.json();
+      return data;
+    },
+    onSuccess: (data) => {
+      const url = data?.data?.url;
+      if (url) {
+        window.location.href = url;
+      }
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // handle continue
+    if (!agreed) return;
+    paymentMutation.mutate();
   };
 
   return (
     <div className="bg-gray-100 flex flex-col items-center justify-center px-4 py-20">
-      {/* Page Title */}
       <h1 className="text-2xl sm:text-[36px] font-medium text-[#131313] mb-14">
-        Start Your Donation  
+        Start Your Donation
       </h1>
 
       <div className="flex flex-col sm:flex-row gap-16 w-full max-w-6xl items-start">
@@ -85,11 +136,10 @@ export default function DonorInformation() {
         {/* Form */}
         <div className="flex-1 w-full">
           <h2 className="text-xl sm:text-[36px] font-medium text-[#131313] mb-7">
-            Donor information 
+            Donor information
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name */}
             <div>
               <label className="block text-xl font-medium text-[#131313] mb-1">Name</label>
               <input
@@ -101,7 +151,6 @@ export default function DonorInformation() {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-xl font-medium text-[#131313] mb-1">Email</label>
               <input
@@ -113,7 +162,6 @@ export default function DonorInformation() {
               />
             </div>
 
-            {/* Mobile */}
             <div>
               <label className="block text-xl font-medium text-[#131313] mb-1">Mobile</label>
               <input
@@ -125,7 +173,6 @@ export default function DonorInformation() {
               />
             </div>
 
-            {/* Country + City */}
             <div className="flex gap-4">
               <div className="flex-1">
                 <label className="block text-xl font-medium text-[#131313] mb-1">Country</label>
@@ -149,7 +196,6 @@ export default function DonorInformation() {
               </div>
             </div>
 
-            {/* Donation Amount */}
             <div>
               <label className="block text-xl font-medium text-[#131313] mb-1">
                 Donation amount
@@ -163,7 +209,6 @@ export default function DonorInformation() {
               />
             </div>
 
-            {/* Terms Checkbox */}
             <div className="flex items-center gap-2 bg-[#E4F3FF] border border-blue-100 rounded-lg px-4 py-3">
               <input
                 id="agree"
@@ -177,13 +222,12 @@ export default function DonorInformation() {
               </label>
             </div>
 
-            {/* Continue Button */}
             <button
               type="submit"
-              disabled={!agreed}
+              disabled={!agreed || paymentMutation.isPending}
               className="w-full bg-[#0024DA] hover:bg-[#0024DA]/90 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold h-[56px] rounded-[8px] transition-colors"
             >
-              Continue
+              {paymentMutation.isPending ? 'Redirecting...' : 'Continue'}
             </button>
           </form>
         </div>

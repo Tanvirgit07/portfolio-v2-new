@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 interface Donor {
   _id: string;
@@ -83,7 +84,10 @@ function ViewCampaignSkeleton() {
               <Skeleton className="h-5 w-28 mb-3" />
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex items-center justify-between py-4 border border-[#ACACAC] px-4 rounded-md">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between py-4 border border-[#ACACAC] px-4 rounded-md"
+                  >
                     <div className="flex items-center gap-3">
                       <Skeleton className="w-11 h-11 rounded-full flex-shrink-0" />
                       <div className="space-y-1">
@@ -129,7 +133,7 @@ export function ViewCampaings() {
     queryKey: ["singleCampaign", id],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/campaign/${id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/campaign/${id}`,
       );
       const data = await res.json();
       return data?.data;
@@ -137,10 +141,9 @@ export function ViewCampaings() {
     enabled: !!id,
   });
 
-  const images =
-    apiData?.media?.length
-      ? apiData.media.map((m) => m.url)
-      : ["/images/aboutbg.png"];
+  const images = apiData?.media?.length
+    ? apiData.media.map((m) => m.url)
+    : ["/images/aboutbg.png"];
 
   const raised = apiData?.totalRaised ?? 0;
   const goal = Number(apiData?.raiseGoal) || 0;
@@ -213,21 +216,33 @@ export function ViewCampaings() {
 
                 {images.length > 1 && (
                   <div className="flex items-center gap-2 mb-6">
-                    <button className="p-1 text-gray-400 hover:text-gray-600">‹</button>
+                    <button className="p-1 text-gray-400 hover:text-gray-600">
+                      ‹
+                    </button>
                     <div className="flex gap-2 overflow-x-auto flex-1">
                       {images.slice(1).map((img, i) => (
                         <button
                           key={i}
                           onClick={() => setActiveImage(i + 1)}
                           className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                            activeImage === i + 1 ? "border-blue-500" : "border-transparent"
+                            activeImage === i + 1
+                              ? "border-blue-500"
+                              : "border-transparent"
                           }`}
                         >
-                          <Image width={120} height={80} src={img} alt="" className="w-full h-full object-cover" />
+                          <Image
+                            width={120}
+                            height={80}
+                            src={img}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
                         </button>
                       ))}
                     </div>
-                    <button className="p-1 text-gray-400 hover:text-gray-600">›</button>
+                    <button className="p-1 text-gray-400 hover:text-gray-600">
+                      ›
+                    </button>
                   </div>
                 )}
 
@@ -250,17 +265,25 @@ export function ViewCampaings() {
                   className="flex items-center gap-1 text-blue-500 text-sm font-medium hover:text-blue-700 transition-colors mb-8"
                 >
                   {showFullStory ? "Show less" : "Show more"}
-                  <span className={`transition-transform ${showFullStory ? "rotate-180" : ""}`}>⌄</span>
+                  <span
+                    className={`transition-transform ${showFullStory ? "rotate-180" : ""}`}
+                  >
+                    ⌄
+                  </span>
                 </button>
 
                 {/* Organizer */}
                 <div className="mb-6">
-                  <h3 className="text-base font-semibold text-gray-900 mb-3">Organizer</h3>
+                  <h3 className="text-base font-semibold text-gray-900 mb-3">
+                    Organizer
+                  </h3>
                   <div className="border border-[#ACACAC] rounded-xl p-4 flex items-center gap-3">
                     <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-lg flex-shrink-0">
                       {apiData?.createdBy?.name?.charAt(0).toUpperCase()}
                     </div>
-                    <p className="font-medium text-gray-800">{apiData?.createdBy?.name}</p>
+                    <p className="font-medium text-gray-800">
+                      {apiData?.createdBy?.name}
+                    </p>
                   </div>
                 </div>
 
@@ -281,8 +304,12 @@ export function ViewCampaings() {
                               {student.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-gray-900">{student.name}</p>
-                              <p className="text-xs text-gray-400">{student.email}</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {student.name}
+                              </p>
+                              <p className="text-xs text-gray-400">
+                                {student.email}
+                              </p>
                             </div>
                           </div>
                           {student.raisedAmount > 0 && (
@@ -299,13 +326,17 @@ export function ViewCampaings() {
                 {/* Top Donors */}
                 {topDonors.length > 0 && (
                   <div>
-                    <h3 className="text-base font-semibold text-gray-900 mb-3">Top 3 Donors</h3>
+                    <h3 className="text-base font-semibold text-gray-900 mb-3">
+                      Top 3 Donors
+                    </h3>
                     <div className="space-y-0">
                       {topDonors.map((donor, index) => (
                         <div
                           key={donor._id}
                           className={`flex items-center justify-between py-4 mb-4 rounded-md ${
-                            index < topDonors.length - 1 ? "border border-[#ACACAC] px-4" : ""
+                            index < topDonors.length - 1
+                              ? "border border-[#ACACAC] px-4"
+                              : ""
                           }`}
                         >
                           <div className="flex items-center gap-3">
@@ -313,13 +344,18 @@ export function ViewCampaings() {
                               {donor.donor.name.charAt(0).toUpperCase()}
                             </div>
                             <div>
-                              <p className="text-sm font-medium text-gray-900">{donor.donor.name}</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {donor.donor.name}
+                              </p>
                               <p className="text-xs text-gray-400">
-                                {new Date(donor.createdAt).toLocaleDateString("en-US", {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
+                                {new Date(donor.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  },
+                                )}
                               </p>
                             </div>
                           </div>
@@ -359,16 +395,21 @@ export function ViewCampaings() {
                             {donation.donor.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <p className="text-sm font-medium text-gray-900">{donation.donor.name}</p>
+                            <p className="text-sm font-medium text-gray-900">
+                              {donation.donor.name}
+                            </p>
                             <p className="text-xs text-gray-400">
                               {donation.donor.city}, {donation.donor.country}
                             </p>
                             <p className="text-xs text-gray-400">
-                              {new Date(donation.createdAt).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              })}
+                              {new Date(donation.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                },
+                              )}
                             </p>
                           </div>
                         </div>
@@ -405,9 +446,11 @@ export function ViewCampaings() {
                 <span>{donations.length} Donors</span>
               </div>
 
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors mb-2">
-                Donate now
-              </button>
+              <Link href={`/donor-information?campaignId=${apiData?._id}`}>
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors mb-2">
+                  Donate now
+                </button>
+              </Link>
 
               <button className="w-full flex items-center justify-center gap-2 border border-gray-200 hover:bg-gray-50 text-gray-700 text-sm font-medium py-2.5 rounded-lg transition-colors">
                 <span>🔗</span> Share with friends

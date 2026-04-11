@@ -1,7 +1,12 @@
-export default function Home() {
+import React from 'react'
+import HomeHero from './_components/HomeHero'
+
+function page() {
   return (
     <div>
-      <p>paGe</p>
+      <HomeHero />
     </div>
-  );
+  )
 }
+
+export default page

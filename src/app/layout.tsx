@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Spline_Sans } from "next/font/google";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import AppProvider from "@/provider/AppProvider";
 import AuthProvider from "@/provider/AuthProvider";
 import { Toaster } from "sonner";
 
-const montserrat = Montserrat({
+const splineSans = Spline_Sans({
   subsets: ["latin"],
-  variable: "--font-montserrat",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-spline-sans",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -25,12 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>
+      <body className={`${splineSans.className} antialiased`}>
         <NextTopLoader color="#0070f3" height={3} showSpinner={false} />
         <AppProvider>
           <AuthProvider>
             <div className="">{children}</div>
-              <Toaster richColors position="bottom-right" />
+            <Toaster richColors position="bottom-right" />
           </AuthProvider>
         </AppProvider>
       </body>

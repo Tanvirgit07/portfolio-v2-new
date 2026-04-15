@@ -232,7 +232,7 @@ export default function SkillSection() {
             <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter">
               MY <span className="text-[#c7d300]">SKILLS</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-xl leading-relaxed">
+            <p className="text-slate-400 text-lg max-w-4xl leading-relaxed">
               I specialize in building modern web applications using cutting-edge technologies. Focused on performance,
               accessibility, and user-centric design.
             </p>

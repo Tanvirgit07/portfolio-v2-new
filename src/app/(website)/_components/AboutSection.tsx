@@ -216,21 +216,28 @@ export default function AboutSection() {
       </div>
 
       {/* STATS */}
-      <div className="bg-white/5 py-10 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+     <div className="relative border-y border-white/5 bg-white/[0.02] py-16 backdrop-blur-sm overflow-hidden">
+        {/* Background Decorative Text */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
+          <span className="text-[200px] font-black tracking-tighter">
+            SUCCESS
+          </span>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              className="flex flex-col items-center gap-1"
-              initial={{ opacity: 0, y: 28 }}
+              className="flex flex-col items-center gap-2"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <span className="text-[11px] tracking-widest uppercase text-gray-400">
+              <span className="text-[10px] tracking-[0.3em] uppercase text-[#c7d300] font-bold">
                 {stat.label}
               </span>
-              <CountUpNumber value={stat.value} delay={i * 0.15} />
+              <CountUpNumber value={stat.value} delay={i * 0.1} />
             </motion.div>
           ))}
         </div>

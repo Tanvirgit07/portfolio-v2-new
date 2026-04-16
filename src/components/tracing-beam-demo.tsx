@@ -1,117 +1,108 @@
 "use client";
 import React from "react";
-import { calsans } from "@/fonts/calsans";
-
-import { twMerge } from "tailwind-merge";
+import { motion } from "framer-motion";
 import { TracingBeam } from "@/components/ui/tracing-beam";
+import Image from "next/image";
+
+// ১. ডামি কন্টেন্টকে ফাংশনের উপরে নিয়ে আসা হয়েছে এরর ফিক্স করার জন্য
+const dummyContent = [
+  {
+    title: "Revolutionizing Digital Architecture",
+    description: (
+      <>
+        <p>
+          In this project, I focused on creating a scalable system that handles high-traffic
+          real-time data. The core challenge was maintaining low latency while ensuring
+          the user experience remained fluid and responsive.
+        </p>
+        <p>
+          Using advanced state management and optimized rendering patterns, we achieved 
+          a 40% increase in load speeds across all global regions.
+        </p>
+      </>
+    ),
+    badge: "Full Stack",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=3540",
+  },
+  {
+    title: "Minimalism in UI Design",
+    description: (
+      <>
+        <p>
+          Design is not just how it looks, but how it works. This exploration into 
+          minimalist UI focuses on removing noise and emphasizing function over fashion.
+        </p>
+        <p>
+          The result is a clean, sharp, and brutalist aesthetic that aligns perfectly with 
+          modern technical requirements and user expectations.
+        </p>
+      </>
+    ),
+    badge: "UI/UX Design",
+    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=3540",
+  },
+  {
+    title: "Future of Web Interaction",
+    description: (
+      <>
+        <p>
+          Exploring Framer Motion and GSAP to bring life to static components. 
+          Interactions should feel natural, intentional, and non-intrusive.
+        </p>
+      </>
+    ),
+    badge: "Animation",
+    image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=3506",
+  },
+];
 
 export default function TracingBeamDemo() {
   return (
-    <TracingBeam className="px-6">
-      <div className="max-w-2xl mx-auto antialiased pt-4 relative">
-        {dummyContent.map((item, index) => (
-          <div key={`content-${index}`} className="mb-10">
-            <h2 className="bg-black text-white rounded-full text-sm w-fit px-4 py-1 mb-4">
-              {item.badge}
-            </h2>
+    // সেকশনটির ব্যাকগ্রাউন্ড আপনার থিমের সাথে ম্যাচ করা হয়েছে
+    <section className="bg-[#15160e] py-20 overflow-hidden">
+      <TracingBeam className="px-6">
+        <div className="max-w-2xl mx-auto antialiased pt-4 relative">
+          {dummyContent.map((item, index) => (
+            <motion.div 
+              key={`content-${index}`} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="mb-20"
+            >
+              {/* Badge: Sharp square style with #c7d300 color */}
+              <h2 className="bg-[#c7d300] text-black font-black uppercase text-[10px] tracking-[0.3em] w-fit px-4 py-1.5 mb-6">
+                {item.badge}
+              </h2>
 
-            <p className={twMerge(calsans.className, "text-xl mb-4")}>
-              {item.title}
-            </p>
+              {/* Title: Big, Bold, and Sharp */}
+              <p className="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-[0.9]">
+                {item.title}
+              </p>
 
-            <div className="text-sm  prose prose-sm dark:prose-invert">
-              {item?.image && (
-                <img
-                  src={item.image}
-                  alt="blog thumbnail"
-                  height="1000"
-                  width="1000"
-                  className="rounded-lg mb-10 object-cover"
-                />
-              )}
-              {item.description}
-            </div>
-          </div>
-        ))}
-      </div>
-    </TracingBeam>
+              <div className="prose prose-sm dark:prose-invert">
+                {item?.image && (
+                  <div className="relative group overflow-hidden border border-neutral-800 mb-10">
+                    <Image
+                    width={399}
+                    height={499}
+                      src={item.image}
+                      alt={item.title}
+                      className="object-cover w-full h-full grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    />
+                  </div>
+                )}
+                
+                {/* Description Text Styling */}
+                <div className="text-neutral-500 text-sm md:text-base leading-relaxed space-y-5 font-medium">
+                  {item.description}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </TracingBeam>
+    </section>
   );
 }
-
-const dummyContent = [
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: (
-      <>
-        <p>
-          Sit duis est minim proident non nisi velit non consectetur. Esse
-          adipisicing laboris consectetur enim ipsum reprehenderit eu deserunt
-          Lorem ut aliqua anim do. Duis cupidatat qui irure cupidatat incididunt
-          incididunt enim magna id est qui sunt fugiat. Laboris do duis pariatur
-          fugiat Lorem aute sit ullamco. Qui deserunt non reprehenderit dolore
-          nisi velit exercitation Lorem qui do enim culpa. Aliqua eiusmod in
-          occaecat reprehenderit laborum nostrud fugiat voluptate do Lorem culpa
-          officia sint labore. Tempor consectetur excepteur ut fugiat veniam
-          commodo et labore dolore commodo pariatur.
-        </p>
-        <p>
-          Dolor minim irure ut Lorem proident. Ipsum do pariatur est ad ad
-          veniam in commodo id reprehenderit adipisicing. Proident duis
-          exercitation ad quis ex cupidatat cupidatat occaecat adipisicing.
-        </p>
-        <p>
-          Tempor quis dolor veniam quis dolor. Sit reprehenderit eiusmod
-          reprehenderit deserunt amet laborum consequat adipisicing officia qui
-          irure id sint adipisicing. Adipisicing fugiat aliqua nulla nostrud.
-          Amet culpa officia aliquip deserunt veniam deserunt officia
-          adipisicing aliquip proident officia sunt.
-        </p>
-      </>
-    ),
-    badge: "React",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: (
-      <>
-        <p>
-          Ex irure dolore veniam ex velit non aute nisi labore ipsum occaecat
-          deserunt cupidatat aute. Enim cillum dolor et nulla sunt exercitation
-          non voluptate qui aliquip esse tempor. Ullamco ut sunt consectetur
-          sint qui qui do do qui do. Labore laborum culpa magna reprehenderit ea
-          velit id esse adipisicing deserunt amet dolore. Ipsum occaecat veniam
-          commodo proident aliqua id ad deserunt dolor aliquip duis veniam sunt.
-        </p>
-        <p>
-          In dolore veniam excepteur eu est et sunt velit. Ipsum sint esse
-          veniam fugiat esse qui sint ad sunt reprehenderit do qui proident
-          reprehenderit. Laborum exercitation aliqua reprehenderit ea sint
-          cillum ut mollit.
-        </p>
-      </>
-    ),
-    badge: "Changelog",
-    image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: (
-      <>
-        <p>
-          Ex irure dolore veniam ex velit non aute nisi labore ipsum occaecat
-          deserunt cupidatat aute. Enim cillum dolor et nulla sunt exercitation
-          non voluptate qui aliquip esse tempor. Ullamco ut sunt consectetur
-          sint qui qui do do qui do. Labore laborum culpa magna reprehenderit ea
-          velit id esse adipisicing deserunt amet dolore. Ipsum occaecat veniam
-          commodo proident aliqua id ad deserunt dolor aliquip duis veniam sunt.
-        </p>
-      </>
-    ),
-    badge: "Launch Week",
-    image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=3506&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];

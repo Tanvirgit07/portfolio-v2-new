@@ -81,10 +81,10 @@ const Experience = () => {
       className="bg-[#0f100a] overflow-hidden selection:bg-[#c7d300] selection:text-black"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto my-20">
+      <div className="max-w-7xl mx-auto my-16">
         <div className="text-left relative z-20">
-          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none mb-6 md:whitespace-nowrap">
-            WORK & <span className="text-[#c7d300]">EXPERIENCE</span>
+          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-6 md:whitespace-nowrap">
+            MY <span className="text-[#c7d300]">EXPERIENCE</span>
           </h2>
           <p className="text-slate-400 text-sm md:text-lg max-w-4xl leading-relaxed text-justify">
             A showcase of my professional journey and hands-on experience in
@@ -95,7 +95,7 @@ const Experience = () => {
         </div>
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 mb-10">
         {/* Background Main Line (Dashed) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 w-[2px] h-full bg-white/5 hidden md:block border-l border-dashed border-white/20"></div>
 

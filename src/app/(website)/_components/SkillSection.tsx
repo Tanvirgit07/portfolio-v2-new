@@ -229,7 +229,7 @@ export default function SkillSection() {
       <div className="relative z-10 w-full max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between mb-16 gap-8">
           <div className="text-left">
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter">
               MY <span className="text-[#c7d300]">SKILLS</span>
             </h2>
             <p className="text-slate-400 text-lg max-w-4xl leading-relaxed">

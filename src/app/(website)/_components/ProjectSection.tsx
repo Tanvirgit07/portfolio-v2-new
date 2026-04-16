@@ -211,8 +211,8 @@ export default function ProjectSection() {
       <div className="max-w-7xl mx-auto pt-24 pb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
           <div className="text-left relative z-20">
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none mb-6 md:whitespace-nowrap">
-              SELECTED <span className="text-[#c7d300]">PROJECTS</span>
+            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-6 md:whitespace-nowrap">
+              MY <span className="text-[#c7d300]">PROJECTS</span>
             </h2>
             <p className="text-slate-400 text-sm md:text-lg max-w-4xl leading-relaxed text-justify">
               Merging aesthetics with functionality. A collection of digital

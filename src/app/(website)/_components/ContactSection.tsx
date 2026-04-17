@@ -48,7 +48,7 @@ export default function UpdatedContactSection() {
   ];
 
   return (
-    <section className="bg-[#15160e] pt-16 pb-10 px-6 font-sans min-h-screen">
+    <section className="bg-[#15160e] pt-16 pb-10 font-sans min-h-screen">
       <div className="max-w-7xl mx-auto">
         {/* ✅ Title Section - Moved to Top (Outside the grid) */}
         <div className="mb-16 space-y-2">

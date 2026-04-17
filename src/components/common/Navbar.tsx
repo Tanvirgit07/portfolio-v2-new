@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Home,
   User,
@@ -9,6 +9,7 @@ import {
   Hash,
   FileText,
   MessageSquare,
+  Cpu,
 } from "lucide-react";
 
 type NavItem = {
@@ -19,21 +20,55 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { id: "home", icon: <Home size={30} />, label: "Home" },
-  { id: "profile", icon: <User size={30} />, label: "Profile" },
-  { id: "jobs", icon: <Briefcase size={30} />, label: "Jobs" },
-  { id: "tasks", icon: <ClipboardList size={30} />, label: "Tasks" },
-  { id: "tags", icon: <Hash size={30} />, label: "Tags" },
-  { id: "documents", icon: <FileText size={30} />, label: "Documents" },
-  { id: "messages", icon: <MessageSquare size={30} />, label: "Messages" },
+  { id: "about", icon: <User size={30} />, label: "Profile" },
+  { id: "skills", icon: <Cpu size={30} />, label: "Skills" },
+  { id: "resume", icon: <FileText size={30} />, label: "Resume" },
+  { id: "projects", icon: <Briefcase size={30} />, label: "Projects" },
+  { id: "experience", icon: <ClipboardList size={30} />, label: "Experience" },
+  { id: "knowledge", icon: <Hash size={30} />, label: "Knowledge" },
+  { id: "contact", icon: <MessageSquare size={30} />, label: "Contact" },
 ];
 
 export default function Navbar() {
-  const [active, setActive] = useState("tasks");
+  const [active, setActive] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navItems.map(item => document.getElementById(item.id));
+      
+      let currentActive = active;
+      sections.forEach((section) => {
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentActive = section.id;
+          }
+        }
+      });
+      setActive(currentActive);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [active]);
+
+  // --- Smooth Scroll Logic (Modified for better control) ---
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      // ডিফল্ট behavior এর বদলে offsetTop ব্যবহার করে স্ক্রলিং স্পিডকে ন্যাচারাল করা হয়েছে
+      const offsetTop = element.offsetTop;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-5 z-50 flex flex-col items-center w-[68px] h-screen bg-transparent py-5 gap-3">
       {/* Logo */}
-      <div className="mb-4 flex items-center justify-center w-full px-3">
+      <div className="mb-3 flex items-center justify-center w-full px-3">
         <div className="flex items-center gap-1">
           <span className="text-[#c8e63b] text-xl font-bold leading-none">
             i
@@ -45,13 +80,16 @@ export default function Navbar() {
       </div>
 
       {/* Nav Icons */}
-      <div className="flex flex-col gap-7 w-full px-3">
+      <div className="flex flex-col gap-3 w-full px-3">
         {navItems.map((item) => {
           const isActive = active === item.id;
           return (
             <button
               key={item.id}
-              onClick={() => setActive(item.id)}
+              onClick={() => {
+                setActive(item.id);
+                scrollToSection(item.id);
+              }}
               aria-label={item.label}
               className={`
                 group relative flex items-center justify-center

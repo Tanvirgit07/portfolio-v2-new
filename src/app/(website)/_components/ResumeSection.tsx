@@ -2,16 +2,33 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, Eye, Copy, Check, ArrowUpRight } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 export default function OptimizedResumeSection() {
   const [copied, setCopied] = useState(false);
-  const resumeLink = "https://yourportfolio.com/resume.pdf";
+
+  // API থেকে সক্রিয় রেজুমি ডাটা নিয়ে আসা
+  const { data: response, isLoading } = useQuery({
+    queryKey: ["activeResume"],
+    queryFn: async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/resume/activeresume`);
+      return res.json();
+    },
+  });
+
+  const resumeData = response?.data;
+  const resumeLink = resumeData?.resumeUrl || "#";
 
   const handleCopy = () => {
+    if (!resumeLink || resumeLink === "#") return;
     navigator.clipboard.writeText(resumeLink);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
+  // ডাটা লোড হওয়ার সময় বা না থাকলে সেকশনটি দেখাবে না
+  if (isLoading) return <div className="bg-[#15160e] py-16 h-[400px]" />;
+  if (!resumeData) return null;
 
   return (
     <section className="bg-[#15160e] py-16 px-6 font-sans border-t border-neutral-900/50">
@@ -54,10 +71,11 @@ export default function OptimizedResumeSection() {
             {/* Action Side - Optimized Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-              {/* View Button - Sharp Edges */}
+              {/* View Button */}
               <motion.a
                 href={resumeLink}
                 target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ backgroundColor: "#22231b" }}
                 className="flex flex-col justify-between p-8 bg-[#11120d] border border-neutral-800 text-white transition-all group relative overflow-hidden"
               >
@@ -71,10 +89,11 @@ export default function OptimizedResumeSection() {
                 </div>
               </motion.a>
 
-              {/* Download Button - Sharp Edges */}
+              {/* Download Button */}
               <motion.a
-                href="/resume.pdf"
-                download
+                href={resumeLink}
+                download={`Tanvir_Resume_${resumeData.version}.pdf`}
+                target="_blank"
                 whileHover={{ y: -5 }}
                 className="flex flex-col justify-between p-8 bg-[#c7d300] text-black transition-all shadow-[8px_8px_0px_#22231b]"
               >
@@ -85,7 +104,7 @@ export default function OptimizedResumeSection() {
                 </div>
               </motion.a>
 
-              {/* Copy Link Button - Optimized Width */}
+              {/* Copy Link Button */}
               <button
                 onClick={handleCopy}
                 className="sm:col-span-2 flex items-center justify-between p-6 bg-transparent border border-neutral-800 text-neutral-500 hover:text-white hover:border-[#c7d300]/50 transition-all text-[10px] font-bold uppercase tracking-widest group"
@@ -103,7 +122,9 @@ export default function OptimizedResumeSection() {
                     )}
                   </AnimatePresence>
                 </div>
-                <span className="text-neutral-800 font-mono lowercase opacity-0 group-hover:opacity-100 transition-opacity">v2.4.0_stable</span>
+                <span className="text-neutral-800 font-mono lowercase opacity-0 group-hover:opacity-100 transition-opacity">
+                  {resumeData.version || "stable"}
+                </span>
               </button>
 
             </div>
@@ -112,7 +133,7 @@ export default function OptimizedResumeSection() {
 
         {/* Bottom Label */}
         <div className="mt-12 flex justify-between items-center text-neutral-800 text-[9px] font-black uppercase tracking-[0.3em]">
-          <span>© 2026 Personal Portfolio</span>
+          <span>© 2026 Tanvir Ahmmed</span>
           <span className="h-[1px] flex-1 mx-8 bg-neutral-900" />
           <span>Next.js + Framer Motion</span>
         </div>

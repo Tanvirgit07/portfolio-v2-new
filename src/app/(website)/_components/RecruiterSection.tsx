@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
@@ -108,7 +109,7 @@ export default function RecruiterFeedbackSection() {
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const formData = new FormData(form);
+    // const formData = new FormData(form);
 
     // এখান থেকে ভ্যালুগুলো নেওয়া হচ্ছে
     const data = {

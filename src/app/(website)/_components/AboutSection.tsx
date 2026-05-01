@@ -3,12 +3,18 @@
 
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  useInView,
+} from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
-// ─── CountUpNumber ───────────────────────────────────────────
+// ─── CountUpNumber (Sora Font Optimized) ───────────────────────────
 function CountUpNumber({ value, delay }: { value: string; delay: number }) {
   const num = parseInt(value) || 0;
   const suffix = value.replace(/\d/g, "");
@@ -33,21 +39,31 @@ function CountUpNumber({ value, delay }: { value: string; delay: number }) {
   }, [inView, num, delay]);
 
   return (
-    <span ref={ref} className="text-5xl font-bold text-white mt-1 tabular-nums">
-      {display}{suffix}
+    <span
+      ref={ref}
+      className="text-3xl md:text-5xl font-extrabold text-white mt-1 tabular-nums"
+    >
+      {display}
+      {suffix}
     </span>
   );
 }
 
-// ─── TiltImage ───────────────────────────────────────────────
+// ─── TiltImage ───────────────────────────────
 function TiltImage({ image }: { image: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const springConfig = { stiffness: 150, damping: 20 };
 
-  const rotateX = useSpring(useTransform(rawY, [-1, 1], [12, -12]), springConfig);
-  const rotateY = useSpring(useTransform(rawX, [-1, 1], [-12, 12]), springConfig);
+  const rotateX = useSpring(
+    useTransform(rawY, [-1, 1], [12, -12]),
+    springConfig,
+  );
+  const rotateY = useSpring(
+    useTransform(rawX, [-1, 1], [-12, 12]),
+    springConfig,
+  );
   const scale = useSpring(1, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -73,12 +89,30 @@ function TiltImage({ image }: { image: string }) {
       style={{ rotateX, rotateY, scale, transformPerspective: 800 }}
       className="relative flex-shrink-0 cursor-pointer"
     >
-      <div className="absolute rounded-full z-0" style={{ inset: "-6px", background: "conic-gradient(from 0deg, #3b82f6, #60a5fa, #a5b4fc, #3b82f6)", animation: "spin-slow 4s linear infinite" }} />
-      <div className="absolute rounded-full z-10" style={{ inset: "-3px", background: "rgba(255,255,255,0.06)", backdropFilter: "blur(6px)" }} />
-      <div className="relative w-[280px] h-[280px] rounded-full overflow-hidden z-20 shadow-2xl border border-white/10">
-        <Image src={image || "/images/tanvir.jpg"} alt="About Image" fill className="object-cover object-top" />
+      <div
+        className="absolute rounded-full z-0"
+        style={{
+          inset: "-6px",
+          background: "conic-gradient(from 0deg, #c7d300, #a5b4fc, #c7d300)",
+          animation: "spin-slow 4s linear infinite",
+        }}
+      />
+      <div
+        className="absolute rounded-full z-10"
+        style={{
+          inset: "-3px",
+          background: "rgba(255,255,255,0.06)",
+          backdropFilter: "blur(6px)",
+        }}
+      />
+      <div className="relative w-[220px] h-[220px] md:w-[280px] md:h-[280px] rounded-full overflow-hidden z-20 shadow-2xl border border-white/10">
+        <Image
+          src={image || "/images/tanvir.jpg"}
+          alt="About Image"
+          fill
+          className="object-cover object-top"
+        />
       </div>
-      <div className="absolute rounded-full bg-blue-500 opacity-20 blur-3xl z-0" style={{ inset: "-10px" }} />
     </motion.div>
   );
 }
@@ -88,7 +122,9 @@ export default function AboutSection() {
   const { data: response, isLoading } = useQuery({
     queryKey: ["activeAbout"],
     queryFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/about/getActiveAbout`);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/about/getActiveAbout`,
+      );
       return res.json();
     },
   });
@@ -97,67 +133,72 @@ export default function AboutSection() {
   if (!response?.status) return null;
 
   const aboutData = response.data;
-
-  // Typewriter sequence তৈরি করা
-  const typewriterSequence = aboutData.typewriterStrings.flatMap((str: string) => [str, 2000]);
+  const typewriterSequence = aboutData.typewriterStrings.flatMap(
+    (str: string) => [str, 2000],
+  );
 
   return (
-    <section className="w-full bg-[#15160e] text-white font-sans">
-      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row items-center gap-16">
+    <section className="w-full bg-[#15160e] text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 py-12 md:py-24 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+        {/* Profile Image Section */}
         <div className="relative flex items-center gap-6 flex-shrink-0">
-          <div className="flex flex-col items-center self-stretch py-2">
-            <div className="w-[5px] h-[5px] rounded-full bg-gray-500" />
-            <div className="w-[1.5px] flex-1 bg-gray-700 my-1" />
-            <div className="w-[5px] h-[5px] rounded-full bg-gray-500" />
+          <div className="hidden md:flex flex-col items-center self-stretch py-2">
+            <div className="w-[6px] h-[6px] rounded-full bg-white/20" />
+            <div className="w-[1px] flex-1 bg-gradient-to-b from-white/20 via-white/10 to-transparent my-2" />
           </div>
           <TiltImage image={aboutData.profileImage} />
-          <span className="absolute -left-7 bottom-14 text-[11px] text-gray-500 tracking-widest uppercase font-medium select-none" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
+          <span
+            className="hidden md:block absolute -left-10 bottom-14 text-[10px] text-white/40 tracking-[0.3em] uppercase font-bold select-none"
+            style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+          >
             My Story
           </span>
         </div>
 
-        <div className="flex-1 max-w-5xl">
-          <p className="text-sm tracking-widest uppercase mb-3 font-medium">
-            {typewriterSequence.length > 0 && (
-              <TypeAnimation
-                sequence={typewriterSequence}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-gray-400"
-              />
-            )}
-          </p>
+        {/* Content Section */}
+        <div className="flex-1 text-center md:text-left">
+          <div className="min-h-[24px] mb-4">
+            <p className="text-[11px] md:text-xs tracking-[0.3em] uppercase font-extrabold">
+              {typewriterSequence.length > 0 && (
+                <TypeAnimation
+                  sequence={typewriterSequence}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  className="text-[#c7d300]"
+                />
+              )}
+            </p>
+          </div>
 
-          <h2 className="text-4xl font-bold text-white mb-5 leading-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-8 leading-[1.1] tracking-tight">
             {aboutData.titleLine1}
-            <br />
-            {aboutData.titleLine2}
+            <br className="hidden md:block" />
+            <span className="text-white/80"> {aboutData.titleLine2}</span>
           </h2>
 
-          {aboutData.descriptions.map((desc: string, index: number) => (
-            <p key={index} className="text-gray-300 text-base leading-relaxed mb-4">
-              {desc}
-            </p>
-          ))}
+          <div className="space-y-5 max-w-4xl mx-auto md:mx-0">
+            {aboutData.descriptions.map((desc: string, index: number) => (
+              <p
+                key={index}
+                className="text-white/60 text-sm md:text-base leading-relaxed font-normal"
+              >
+                {desc}
+              </p>
+            ))}
+          </div>
 
-          <button className="w-[200px] h-[65px] bg-[#c7d300] text-black text-[14px] border-2 border-[#c7d300] uppercase font-bold hover:bg-transparent hover:text-white hover:border-2 hover:border-[#c7d300] duration-700 ease-in-out flex items-center justify-center gap-2 mt-6">
-            {aboutData.ctaText || "View Projects"}
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <div className="flex justify-center md:justify-start">
+            <button className="w-full md:w-[220px] h-[60px] md:h-[68px] bg-[#c7d300] text-black text-[12px] md:text-[13px] border-2 border-[#c7d300] uppercase font-black hover:bg-transparent hover:text-white duration-500 flex items-center justify-center gap-3 mt-10 transition-all active:scale-95 group">
+              {aboutData.ctaText || "View Projects"}
+              <ArrowRight className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:translate-x-1" />
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6">
-        <hr className="border-white/10" />
       </div>
 
       {/* STATS SECTION */}
-      <div className="relative border-y border-white/5 bg-white/[0.02] py-16 backdrop-blur-sm overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
-          <span className="text-[200px] font-black tracking-tighter">SUCCESS</span>
-        </div>
-
+      <div className="relative border-y border-white/5 bg-white/[0.02] py-16 md:py-20 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center relative z-10">
           {aboutData.stats.map((stat: any, i: number) => (
             <motion.div
@@ -168,8 +209,8 @@ export default function AboutSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
             >
-              <span className="text-[10px] tracking-[0.3em] uppercase text-[#c7d300] font-bold">
-                {stat.value} {/* আপনার API অনুযায়ী label এবং value অদলবদল হতে পারে */}
+              <span className="text-[10px] md:text-[11px] tracking-[0.25em] uppercase text-[#c7d300] font-black">
+                {stat.value}
               </span>
               <CountUpNumber value={stat.label} delay={i * 0.1} />
             </motion.div>
@@ -180,7 +221,7 @@ export default function AboutSection() {
       <style jsx global>{`
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </section>

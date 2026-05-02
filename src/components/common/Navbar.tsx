@@ -243,8 +243,8 @@ export default function Navbar() {
       <nav className="hidden lg:flex fixed top-0 left-6 z-50 flex-col items-center w-[76px] h-screen bg-transparent py-8 gap-6">
         <div className="mb-6 flex items-center justify-center w-full">
           <div className="flex items-center gap-1 group cursor-pointer">
-            <span className="text-[#c8e63b] text-2xl font-black leading-none drop-shadow-[0_0_8px_rgba(200,230,59,0.3)]">i</span>
-            <span className="text-white text-2xl font-black tracking-tighter leading-none group-hover:text-[#c8e63b] transition-colors">Sti</span>
+            <span className="text-[#c8e63b] text-2xl font-black leading-none drop-shadow-[0_0_8px_rgba(200,230,59,0.3)]">T</span>
+            <span className="text-white text-2xl font-black tracking-tighter leading-none group-hover:text-[#c8e63b] transition-colors">anvir</span>
           </div>
         </div>
 
@@ -305,12 +305,12 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Top Logo */}
-      <div className="lg:hidden fixed top-0 left-0 w-full z-50 p-5 flex justify-start pointer-events-none">
+      {/* <div className="lg:hidden fixed top-0 left-0 w-full z-50 p-5 flex justify-start pointer-events-none">
          <div className="bg-[#1a1b14]/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 pointer-events-auto">
-            <span className="text-[#c8e63b] text-xl font-black">i</span>
-            <span className="text-white text-xl font-black tracking-tighter">Sti</span>
+            <span className="text-[#c8e63b] text-xl font-black">T</span>
+            <span className="text-white text-xl font-black tracking-tighter">anvir</span>
          </div>
-      </div>
+      </div> */}
     </>
   );
 }

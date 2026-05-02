@@ -44,12 +44,12 @@ const Experience = () => {
       className="bg-[#0f100a] overflow-hidden selection:bg-[#c7d300] selection:text-black min-h-screen"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto my-16 px-6">
+      <div className="max-w-7xl mx-auto px-6 mt-20 lg:mt-0">
         <div className="text-left relative z-20">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-6 md:whitespace-nowrap">
             MY <span className="text-[#c7d300]">EXPERIENCE</span>
           </h2>
-          <p className="text-slate-400 text-sm md:text-lg max-w-4xl leading-relaxed text-justify">
+          <p className="text-slate-400 text-sm md:text-lg max-w-4xl leading-relaxed text-justify mb-10 lg:mb-0">
             A showcase of my professional journey and hands-on experience in
             building real-world applications. I focus on delivering scalable,
             high-performance, and user-centric solutions while maintaining clean

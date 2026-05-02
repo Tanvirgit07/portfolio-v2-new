@@ -78,25 +78,29 @@ function HomeHero() {
         )}
       </AnimatePresence>
 
-     {/* Desktop View Switcher (Hero Section Only) */}
-<div className="hidden lg:flex absolute top-10 right-10 z-[100] gap-2 bg-[#15160e]/80 backdrop-blur-md border border-white/10 p-1.5 rounded-full shadow-2xl">
-  <button 
-    onClick={() => setViewMode("api")}
-    className={`p-2.5 rounded-full transition-all duration-300 ${
-      viewMode === "api" ? "bg-[#c7d300] text-black shadow-lg" : "text-white hover:text-[#c7d300]"
-    }`}
-  >
-    <Monitor size={20} />
-  </button>
-  <button 
-    onClick={() => setViewMode("lamp")}
-    className={`p-2.5 rounded-full transition-all duration-300 ${
-      viewMode === "lamp" ? "bg-[#c7d300] text-black shadow-lg" : "text-white hover:text-[#c7d300]"
-    }`}
-  >
-    <LampIcon size={20} />
-  </button>
-</div>
+      {/* Desktop View Switcher (Hero Section Only) */}
+      <div className="hidden lg:flex absolute top-10 right-10 z-[100] gap-2 bg-[#15160e]/80 backdrop-blur-md border border-white/10 p-1.5 rounded-full shadow-2xl">
+        <button
+          onClick={() => setViewMode("api")}
+          className={`p-2.5 rounded-full transition-all duration-300 ${
+            viewMode === "api"
+              ? "bg-[#c7d300] text-black shadow-lg"
+              : "text-white hover:text-[#c7d300]"
+          }`}
+        >
+          <Monitor size={20} />
+        </button>
+        <button
+          onClick={() => setViewMode("lamp")}
+          className={`p-2.5 rounded-full transition-all duration-300 ${
+            viewMode === "lamp"
+              ? "bg-[#c7d300] text-black shadow-lg"
+              : "text-white hover:text-[#c7d300]"
+          }`}
+        >
+          <LampIcon size={20} />
+        </button>
+      </div>
 
       <AnimatePresence mode="wait">
         {showLamp ? (
@@ -121,9 +125,18 @@ function HomeHero() {
                   className="relative z-50 flex flex-col items-center px-8 text-center"
                 >
                   {/* Sub-heading */}
-                  <span className="text-[#c7d300] text-[12px] font-extrabold tracking-[0.3em] mb-3 uppercase">
-                    HELLO, I&apos;M TANVIR AHMMED
-                  </span>
+                  {/* Mobile Typing Animation with Fixed Height to prevent shaking */}
+                  <div className="min-h-[24px] mb-2">
+                    {sequence.length > 0 && (
+                      <TypeAnimation
+                        sequence={sequence}
+                        wrapper="p"
+                        speed={50}
+                        repeat={Infinity}
+                        className="text-[13px] font-black text-[#c7d300] uppercase tracking-[0.2em] drop-shadow-[0_0_8px_rgba(199,211,0,0.3)]"
+                      />
+                    )}
+                  </div>
 
                   {/* Main Title - Updated font sizes & weight */}
                   <h2 className="text-white text-4xl font-black leading-[1.1] uppercase tracking-tighter">

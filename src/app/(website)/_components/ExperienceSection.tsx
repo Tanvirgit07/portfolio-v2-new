@@ -58,7 +58,7 @@ const Experience = () => {
         </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 mb-10">
+      <div className="relative max-w-7xl mx-auto px-4 my-10">
         {/* Background Main Line (Dashed) */}
         <div className="absolute left-1/2 transform -translate-x-1/2 w-[2px] h-full bg-white/5 hidden md:block border-l border-dashed border-white/20"></div>
 

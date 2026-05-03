@@ -72,7 +72,7 @@ export default function KnowledgeHub() {
   if (isLoading) return <div className="min-h-screen bg-[#15160e]" />;
 
   return (
-    <section className="bg-[#15160e] py-20 font-sans selection:bg-[#c7d300] selection:text-black">
+    <section className="bg-[#15160e] lg:py-20 font-sans selection:bg-[#c7d300] selection:text-black">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header & Search */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">

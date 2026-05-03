@@ -260,7 +260,7 @@ export default function ProjectSection() {
               MY <span className="text-[#c7d300]">PROJECTS</span>
             </h2>
             <p className="text-slate-400 text-sm md:text-lg max-w-4xl leading-relaxed">
-              Merging aesthetics with functionality.
+              Merging aesthetics with robust functionality to build scalable web applications. I specialize in crafting seamless user experiences with modern tech stacks that turn complex ideas into high-performing digital solutions.
             </p>
           </div>
           <div className="flex items-center justify-between bg-[#15160e] p-1.5 border border-white/10 shadow-2xl relative z-20 lg:w-fit w-full">

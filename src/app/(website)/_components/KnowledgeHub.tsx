@@ -32,7 +32,7 @@ export default function KnowledgeHub() {
     },
   });
 
-  const insightsData = response?.data?.data || [];
+  const insightsData = useMemo(() => response?.data?.data || [], [response]);
 
   // ফিল্টারিং এবং সার্চিং লজিক (Client Side)
   const filteredData = useMemo(() => {
